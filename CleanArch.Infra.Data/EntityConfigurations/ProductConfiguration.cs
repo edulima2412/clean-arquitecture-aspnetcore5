@@ -9,7 +9,7 @@ namespace CleanArch.Infra.Data.EntityConfigurations
         public void Configure(EntityTypeBuilder<Product> builder)
         {
             builder.Property(p => p.Name).HasMaxLength(100).IsRequired();
-            builder.Property(p => p.Description).HasMaxLength(100).IsRequired();
+            builder.Property(p => p.Description).HasMaxLength(200).IsRequired();
             builder.Property(p => p.Price).HasPrecision(10, 2);
 
             builder.HasData(
