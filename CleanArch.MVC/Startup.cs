@@ -1,4 +1,5 @@
 using CleanArch.Infra.IoC;
+using CleanArch.MVC.MappingConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,9 +20,11 @@ namespace CleanArch.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddInfraestructure(Configuration);
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddInfraestructure(Configuration);
+            services.AddAutoMapperConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
