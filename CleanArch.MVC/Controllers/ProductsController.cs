@@ -2,8 +2,6 @@
 using CleanArch.Application.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArch.MVC.Controllers
@@ -39,6 +37,64 @@ namespace CleanArch.MVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(product);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+            var productVM = await _productService.GetById(id);
+
+            if (productVM == null) return NotFound();
+            return View(productVM);
+        }
+
+        [HttpPost()]
+        public IActionResult Edit([Bind("Id,Name,Description,Price")] ProductViewModel productVM)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _productService.Update(productVM);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(productVM);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null) return NotFound();
+            var productVM = await _productService.GetById(id);
+
+            if (productVM == null) return NotFound();
+            return View(productVM);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            var productVM = await _productService.GetById(id);
+
+            if (productVM == null) return NotFound();
+            return View(productVM);
+        }
+
+        [HttpPost(), ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            _productService.Remove(id);
+
+            return RedirectToAction("Index");
         }
     }
 }

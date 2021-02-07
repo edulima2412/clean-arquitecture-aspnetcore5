@@ -37,10 +37,10 @@ namespace CleanArch.Application.Services
             return _mapper.Map<IEnumerable<ProductViewModel>>(result);
         }
 
-        public void Remove(ProductViewModel product)
+        public void Remove(int? id)
         {
-            var mapProduct = _mapper.Map<Product>(product);
-            _productRepository.Remove(mapProduct);
+            var product = _productRepository.GetById(id).Result;
+            _productRepository.Remove(product);
         }
 
         public void Update(ProductViewModel product)

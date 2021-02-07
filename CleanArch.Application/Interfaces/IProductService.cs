@@ -10,6 +10,6 @@ namespace CleanArch.Application.Interfaces
         Task<ProductViewModel> GetById(int? id);
         void Add(ProductViewModel product);
         void Update(ProductViewModel product);
-        void Remove(ProductViewModel product);
+        void Remove(int? id);
     }
 }
